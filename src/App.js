@@ -60,12 +60,12 @@ function Welcome(){
 
 function MovieCount(){
   const[count, setCount] = useState(3);
-  const increase = () => setCount(count + 1 );
-  const decrease = () => setCount(count - 1);
+  // const increase = () => setCount(count + 1 );
+  // const decrease = () => setCount(count - 1);
   return (
     <div>
-      <button onClick={increase}>Add Movie</button>
-      <button onClick={decrease}>Remove Movie</button>
+      <button onClick={() => setCount(count+1)}>Add Movie</button>
+      <button onClick={() => setCount(count-1)}>Remove Movie</button>
       <h3>Total movie added : {count}</h3>
     </div>
   );
