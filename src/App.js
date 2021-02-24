@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
   const idList = [185, 195, 197, 62, 192];
@@ -32,6 +33,11 @@ function App() {
          }
       </section>
 
+      {/* movie counter */}
+      <section>
+         <MovieCount></MovieCount>
+      </section>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
@@ -45,6 +51,22 @@ function Welcome(){
   return (
     <div style={{border:'1px solid tomato',margin:'10px'}}>
       <h1>Welcome to React World !</h1>
+      <h3>What is component ?</h3>
+      <h5>Similar in look, different in data :)</h5>
+    </div>
+  );
+}
+
+
+function MovieCount(){
+  const[count, setCount] = useState(3);
+  const increase = () => setCount(count + 1 );
+  const decrease = () => setCount(count - 1);
+  return (
+    <div>
+      <button onClick={increase}>Add Movie</button>
+      <button onClick={decrease}>Remove Movie</button>
+      <h3>Total movie added : {count}</h3>
     </div>
   );
 }
