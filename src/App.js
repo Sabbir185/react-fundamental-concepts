@@ -10,7 +10,15 @@ function App() {
     {name: 'Kutub' , gf:'Piyanka'},
     {name: 'Mahbub' , gf:'Bipasha'},
     {name: 'Khalid' , gf:'Alia_vat'}
-  ]
+  ];
+
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(json => setData(json));
+  },[]);
 
   return (
     <div className="App">
@@ -41,7 +49,9 @@ function App() {
 
       {/* api dynamic data load */}
       <section>
-        <NameList></NameList>
+        {
+          data.map( arr => <NameList name={arr.name} id={arr.id} website={arr.website}></NameList>)
+        }
       </section>
 
       <header className="App-header">
@@ -120,18 +130,22 @@ function Personal(props){
 
 
 // api calling using useEffect and useState
-function NameList(){
-  const [info, setInfo] = useState([]);
-  useEffect(()=>{
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res => res.json())
-    .then(data => setInfo(data));
-  },[])
+function NameList(props){
+  const style = {
+    backgroundColor: 'lightgray',
+    border: '2px solid black',
+    borderRadius: '10px',
+    height: '200px',
+    width: '500px',
+    margin: '10px auto',
+    padding: '10px',
+  }
   return (
-    <div>
-      {
-        info.map( data =><ul><li>{data.name}</li></ul>)
-      }
+    <div style={style}>
+      <h1>Data load from server (api calling)</h1>
+      <h2>Name : {props.name}</h2>
+      <h3>Website : {props.website}</h3>
+      <h3>ID : {props.id}</h3>
     </div>
   );
 }
