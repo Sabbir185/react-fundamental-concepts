@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const idList = [185, 195, 197, 62, 192];
@@ -36,6 +36,12 @@ function App() {
       {/* movie counter */}
       <section>
          <MovieCount></MovieCount>
+      </section>
+
+
+      {/* api dynamic data load */}
+      <section>
+        <NameList></NameList>
       </section>
 
       <header className="App-header">
@@ -108,6 +114,24 @@ function Personal(props){
       <h3>gf name : {props.gf}</h3>
       <h4>University of NUBTK</h4>
       <h5>Section : 6A</h5>
+    </div>
+  );
+}
+
+
+// api calling using useEffect and useState
+function NameList(){
+  const [info, setInfo] = useState([]);
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(data => setInfo(data));
+  },[])
+  return (
+    <div>
+      {
+        info.map( data =><ul><li>{data.name}</li></ul>)
+      }
     </div>
   );
 }
